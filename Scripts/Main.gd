@@ -10,10 +10,15 @@ func game_over():
 	$ScoreTimer.stop()
 	$PlanetTimer.stop()
 	
+	$HUD.show_game_over()
+	
 func new_game():
 	score = 0
 	$Spaceship.start($StartPosition.position)
 	$StartTimer.start()
+	
+	$HUD.update_score(score)
+	$HUD.show_message("Get Ready")
 
 func _on_PlanetTimer_timeout():
 	var planet = planet_scene.instance()
@@ -28,6 +33,8 @@ func _on_PlanetTimer_timeout():
 
 func _on_ScoreTimer_timeout():
 	score += 1
+	
+	$HUD.update_score(score)
 
 func _on_StartTimer_timeout():
 	$PlanetTimer.start()
