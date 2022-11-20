@@ -11,6 +11,7 @@ func game_over():
 	$PlanetTimer.stop()
 	
 	$HUD.show_game_over()
+	get_tree().call_group("planets", "queue_free")
 	
 func new_game():
 	score = 0

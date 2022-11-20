@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 24.0832
 
-[node name="Planet" type="RigidBody2D"]
+[node name="Planet" type="RigidBody2D" groups=["planets"]]
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource( 2 )
