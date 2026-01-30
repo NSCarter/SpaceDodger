@@ -1,6 +1,6 @@
 extends Node
 
-export (PackedScene) var planet_scene
+@export var planet_scene: PackedScene
 var score
 
 func _ready():
@@ -22,12 +22,12 @@ func new_game():
 	$HUD.show_message("Get Ready")
 
 func _on_PlanetTimer_timeout():
-	var planet = planet_scene.instance()
-	var planet_spawn_location = get_node("PlanetPath/PlanetSpawnLocation")
-	planet_spawn_location.offset = randi()
+	var planet = planet_scene.instantiate()
+	var planet_spawn_location = $PlanetPath/PlanetSpawnLocation
+	planet_spawn_location.progress_ratio = randf()
 	planet.position = planet_spawn_location.position
 	
-	var velocity = Vector2(0.0, rand_range(150.0, 250.0))
+	var velocity = Vector2(0.0, randf_range(150.0, 250.0))
 	planet.linear_velocity = velocity
 	
 	add_child(planet)
