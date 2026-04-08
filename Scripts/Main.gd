@@ -1,6 +1,6 @@
 extends Node
 
-@export var planet_scene: PackedScene
+@export var asteroid_scene: PackedScene
 var score
 
 func _ready():
@@ -8,10 +8,10 @@ func _ready():
 
 func game_over():
 	$ScoreTimer.stop()
-	$PlanetTimer.stop()
+	$AsteroidTimer.stop()
 	
 	$HUD.show_game_over()
-	get_tree().call_group("planets", "queue_free")
+	get_tree().call_group("asteroids", "queue_free")
 	
 func new_game():
 	score = 0
@@ -21,16 +21,16 @@ func new_game():
 	$HUD.update_score(score)
 	$HUD.show_message("Get Ready")
 
-func _on_PlanetTimer_timeout():
-	var planet = planet_scene.instantiate()
-	var planet_spawn_location = $PlanetPath/PlanetSpawnLocation
-	planet_spawn_location.progress_ratio = randf()
-	planet.position = planet_spawn_location.position
+func _on_AsteroidTimer_timeout():
+	var asteroid = asteroid_scene.instantiate()
+	var asteroid_spawn_location = $AsteroidPath/AsteroidSpawnLocation
+	asteroid_spawn_location.progress_ratio = randf()
+	asteroid.position = asteroid_spawn_location.position
 	
 	var velocity = Vector2(0.0, randf_range(150.0, 250.0))
-	planet.linear_velocity = velocity
+	asteroid.linear_velocity = velocity
 	
-	add_child(planet)
+	add_child(asteroid)
 
 func _on_ScoreTimer_timeout():
 	score += 1
@@ -38,5 +38,5 @@ func _on_ScoreTimer_timeout():
 	$HUD.update_score(score)
 
 func _on_StartTimer_timeout():
-	$PlanetTimer.start()
+	$AsteroidTimer.start()
 	$ScoreTimer.start()
